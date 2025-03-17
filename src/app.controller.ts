@@ -4,11 +4,14 @@ import { Response } from 'express';
 import * as jwt from "jsonwebtoken";
 import { IGetUserAuthInfoResponse } from './type/userResponse';
 import { User } from './schema/user.schema';
+import { ConfigService } from '@nestjs/config';
 
 
 @Controller('api/v1/users')
 export class AppController {
-  constructor(private readonly appService: AppService) { }
+  constructor(private readonly appService: AppService, 
+    private readonly configService: ConfigService
+  ) { }
 
   @Post('register')
   async registerUser(@Body() body: userRegister, @Res() resp: Response) {
@@ -63,7 +66,8 @@ export class AppController {
   }
 
   generateToken(user:UserById):string{
-    return jwt.sign({id:user._id},"akfkadfkadlf;kadfkadf",{
+    const secret = this.configService.get("SECRET_TOKEN")
+    return jwt.sign({id:user._id},secret,{
       expiresIn:'15d'
     })
   }

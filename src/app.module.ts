@@ -4,14 +4,16 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './schema/user.schema';
 import { AuthMiddleware } from './auth.middlewear';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [MongooseModule.forRootAsync({
     useFactory: ()=> ({
-        uri:"mongodb+srv://arshadwebdeveloper10:uHkVc7AnQ6hhxZie@cluster0.xhpx5.mongodb.net/auth"
+        uri:process.env.MONGO_URL,
     }),
   }),
-    MongooseModule.forFeature([{ name: User.name, schema:UserSchema}])
+    MongooseModule.forFeature([{ name: User.name, schema:UserSchema}]),
+    ConfigModule.forRoot()
   ],
   controllers: [AppController],
   providers: [AppService],
