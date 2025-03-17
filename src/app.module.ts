@@ -10,6 +10,7 @@ import { ConfigModule } from '@nestjs/config';
   imports: [MongooseModule.forRootAsync({
     useFactory: ()=> ({
         uri:process.env.MONGO_URL,
+
     }),
   }),
     MongooseModule.forFeature([{ name: User.name, schema:UserSchema}]),
