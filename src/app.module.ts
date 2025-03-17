@@ -8,7 +8,7 @@ import { AuthMiddleware } from './auth.middlewear';
 @Module({
   imports: [MongooseModule.forRootAsync({
     useFactory: ()=> ({
-        uri:"mongodb+srv://arshadwebdeveloper10:uHkVc7AnQ6hhxZie@cluster0.xhpx5.mongodb.net/auth"
+        uri:""
     }),
   }),
     MongooseModule.forFeature([{ name: User.name, schema:UserSchema}])
